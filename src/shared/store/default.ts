@@ -78,6 +78,10 @@ export function getDefaultStore() {
 
       hideCamera: IS_MAC ? 'Shift+Alt+CommandOrControl+2' : 'Shift+Alt+2',
 
+      recording: {
+        toggle: IS_MAC ? 'Shift+Alt+CommandOrControl+R' : 'Shift+Alt+R',
+      },
+
       openPreferencesFile: 'CommandOrControl+,',
 
       adjustCameraOffset: {

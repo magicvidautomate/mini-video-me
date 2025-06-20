@@ -16,4 +16,11 @@ export const IPC = {
   LANGUAGES: {
     UPDATE: 'languages: update',
   },
+
+  RECORDING: {
+    START: 'recording: start',
+    STOP: 'recording: stop',
+    STATUS: 'recording: status',
+    SAVE_PATH: 'recording: save-path',
+  },
 }

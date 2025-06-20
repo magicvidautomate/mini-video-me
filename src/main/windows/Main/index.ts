@@ -7,6 +7,7 @@ import {
   createTrayMenu,
   setVirtualState,
   loadShortcutsModule,
+  loadRecordingModule,
   registerToggleWindowSizeByIPC,
   mergePossibleNewDefaultsInStore,
   watchStoreFileAndRestartAppWhenItChanges,
@@ -76,6 +77,7 @@ export async function MainWindow() {
 
   createTrayMenu()
   loadShortcutsModule()
+  loadRecordingModule()
   registerVideoInputListInTrayByIPC()
   registerToggleWindowSizeByIPC()
   watchStoreFileAndRestartAppWhenItChanges()
