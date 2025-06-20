@@ -8,9 +8,13 @@ import { PLATFORM, ENVIRONMENT } from 'shared/constants'
 
 export async function makeAppSetup(createWindow: () => Promise<BrowserWindow>) {
   if (ENVIRONMENT.IS_DEV) {
-    await installExtension(REACT_DEVELOPER_TOOLS, {
-      forceDownload: false,
-    })
+    try {
+      await installExtension(REACT_DEVELOPER_TOOLS, {
+        forceDownload: false,
+      })
+    } catch (error) {
+      console.warn('Failed to install React Developer Tools:', error.message)
+    }
   }
 
   let window = await createWindow()
