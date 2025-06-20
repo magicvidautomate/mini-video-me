@@ -15,7 +15,10 @@ const isSassAvailable =
 module.exports = {
   target: 'web',
 
-  entry: resolve(FOLDERS.ENTRY_POINTS.RENDERER),
+  entry: {
+    renderer: resolve(FOLDERS.ENTRY_POINTS.RENDERER),
+    'control-panel': resolve('src/renderer/control-panel.tsx'),
+  },
 
   ...sharedOptions,
 
@@ -39,7 +42,7 @@ module.exports = {
 
   output: {
     path: resolve(FOLDERS.DEV_TEMP_BUILD),
-    filename: 'renderer.js',
+    filename: '[name].js',
   },
 
   module: {
@@ -103,6 +106,14 @@ module.exports = {
 
     new HTMLWebpackPlugin({
       template: resolve(FOLDERS.INDEX_HTML),
+      chunks: ['renderer'],
+      filename: 'index.html',
+    }),
+
+    new HTMLWebpackPlugin({
+      template: resolve('src/renderer/control-panel.html'),
+      chunks: ['control-panel'],
+      filename: 'control-panel.html',
     }),
 
     // new webpack.DefinePlugin({

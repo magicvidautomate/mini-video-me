@@ -17,6 +17,7 @@ import { registerVideoInputListInTrayByIPC } from './ipcs'
 import { ENVIRONMENT, PLATFORM } from 'shared/constants'
 import { userPreferences } from 'shared/store'
 import { createWindow } from 'main/factories'
+import { ControlPanelWindow } from '../ControlPanel'
 import { APP_CONFIG } from '~/app.config'
 
 const { TITLE } = APP_CONFIG
@@ -89,6 +90,21 @@ export async function MainWindow() {
 
     screenModule.setActiveDisplayByWindowPosition()
     updateMenu()
+  })
+
+  // Launch the control panel window
+  const controlPanelWindow = await ControlPanelWindow()
+
+  // Position control panel relative to main window
+  mainWindow.on('moved', () => {
+    const mainBounds = mainWindow.getBounds()
+    const panelBounds = controlPanelWindow.getBounds()
+
+    // Position control panel to the left of main window
+    controlPanelWindow.setPosition(
+      mainBounds.x - panelBounds.width - 20,
+      mainBounds.y
+    )
   })
 
   return mainWindow

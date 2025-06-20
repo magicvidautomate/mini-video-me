@@ -64,6 +64,7 @@ video {
   align-items: center;
   justify-content: center;
   background: transparent;
+  position: relative;
 }
 
 #wrapper.has-border {
@@ -90,5 +91,334 @@ video {
   color: var(--text-color);
   clip-path: var(--clip-path);
   position: relative;
+}
+
+/* Recording Indicator Styles */
+.recording-indicator {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.recording-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  color: white;
+  backdrop-filter: blur(10px);
+}
+
+.recording-dot {
+  width: 8px;
+  height: 8px;
+  background: #ff4444;
+  border-radius: 50%;
+  animation: recording-pulse 1.5s infinite;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: #ffa500;
+  border-radius: 50%;
+  animation: pulse 1s infinite;
+}
+
+.status-error {
+  color: #ff6b6b;
+}
+
+@keyframes recording-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Control Panel Styles */
+.control-panel-toggle {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 15;
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+}
+
+.toggle-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.toggle-icon:hover {
+  background: rgba(0, 0, 0, 0.9);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.control-panel {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 15;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 12px;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  min-width: 280px;
+  max-width: 400px;
+  transition: all 0.3s ease;
+  -webkit-app-region: no-drag;
+}
+
+.control-panel.collapsed {
+  max-height: 60px;
+}
+
+.control-panel.expanded {
+  max-height: 600px;
+}
+
+.control-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.expand-btn,
+.close-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.expand-btn:hover,
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.control-panel-content {
+  padding: 16px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.control-section {
+  margin-bottom: 20px;
+}
+
+.control-section:last-child {
+  margin-bottom: 0;
+}
+
+.control-section h4 {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.control-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+}
+
+.control-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  min-height: 70px;
+}
+
+.control-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.control-btn:active {
+  transform: translateY(0);
+}
+
+.control-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.control-btn:disabled:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: none;
+}
+
+.control-btn.recording {
+  background: rgba(255, 68, 68, 0.2);
+  border-color: rgba(255, 68, 68, 0.5);
+}
+
+.control-btn.recording:hover {
+  background: rgba(255, 68, 68, 0.3);
+}
+
+.btn-icon {
+  font-size: 16px;
+  margin-bottom: 2px;
+}
+
+.btn-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: white;
+  line-height: 1.2;
+}
+
+.btn-shortcut {
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: monospace;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 4px;
+  border-radius: 3px;
+  margin-top: 2px;
+}
+
+/* Scrollbar for control panel content */
+.control-panel-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.control-panel-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+.control-panel-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+.control-panel-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Standalone Control Panel Styles */
+.control-panel-screen {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
+  color: white;
+  overflow-y: auto;
+  -webkit-app-region: drag;
+}
+
+.control-panel-header-standalone {
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+  -webkit-app-region: drag;
+}
+
+.control-panel-header-standalone h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  text-align: center;
+}
+
+.control-panel-content-standalone {
+  padding: 20px;
+  -webkit-app-region: no-drag;
+}
+
+.control-panel-content-standalone .control-section {
+  margin-bottom: 24px;
+}
+
+.control-panel-content-standalone .control-section:last-child {
+  margin-bottom: 0;
+}
+
+.control-panel-content-standalone .control-grid {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.control-panel-content-standalone .control-btn {
+  min-height: 80px;
+  padding: 16px 12px;
+}
+
+.control-panel-content-standalone .btn-icon {
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+.control-panel-content-standalone .btn-label {
+  font-size: 12px;
+}
+
+.control-panel-content-standalone .btn-shortcut {
+  font-size: 10px;
 }
 
